@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://bgdf3yfdfi3hc"]
+
+[ext_resource type="Script" path="res://scripts/projectile.gd" id="1_se4iq"]
+[ext_resource type="Texture2D" uid="uid://p3bn67xg6t8d" path="res://assets/shapes_characters/pink_body_circle.png" id="2_a5pou"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_qa06k"]
+
+[node name="Projectile" type="Area2D"]
+top_level = true
+collision_mask = 2
+script = ExtResource("1_se4iq")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("2_a5pou")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_qa06k")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

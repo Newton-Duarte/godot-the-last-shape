@@ -1,0 +1,103 @@
+[gd_scene load_steps=14 format=3 uid="uid://ctl6l28st1pq7"]
+
+[ext_resource type="Script" path="res://scripts/npc.gd" id="1_eah1f"]
+[ext_resource type="AudioStream" uid="uid://cyhtxfdodrkbx" path="res://assets/sfx/game-over-arcade.ogg" id="2_0tayh"]
+[ext_resource type="Texture2D" uid="uid://bfm475kto4cx1" path="res://assets/shapes_characters/yellow_body_square.png" id="2_5433u"]
+[ext_resource type="Texture2D" uid="uid://cl8q2a3ogmqis" path="res://assets/shapes_characters/purple_body_square.png" id="3_e26ur"]
+[ext_resource type="Texture2D" uid="uid://bu2f1uawr1uo8" path="res://assets/shapes_characters/face_a.png" id="3_nesan"]
+[ext_resource type="Texture2D" uid="uid://e62ttd6i5rnm" path="res://assets/shapes_characters/face_i.png" id="3_ssebj"]
+[ext_resource type="Script" path="res://scripts/states/state_machine.gd" id="4_bsvne"]
+[ext_resource type="Texture2D" uid="uid://wsfugcbvga1l" path="res://assets/shapes_characters/pink_body_square.png" id="4_meu76"]
+[ext_resource type="Script" path="res://scripts/states/npc_idle.gd" id="5_2qa1r"]
+[ext_resource type="Texture2D" uid="uid://civ5o6gmrbryv" path="res://assets/shapes_characters/green_body_square.png" id="5_8y7lb"]
+[ext_resource type="Texture2D" uid="uid://bxwwl80fip34l" path="res://assets/shapes_characters/face_j.png" id="5_x6rmw"]
+[ext_resource type="Script" path="res://scripts/states/npc_flee.gd" id="6_ixwkb"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_erhfk"]
+size = Vector2(74, 74)
+
+[node name="NPC" type="CharacterBody2D"]
+collision_layer = 2
+script = ExtResource("1_eah1f")
+textures = Array[Texture]([ExtResource("2_5433u"), ExtResource("3_e26ur"), ExtResource("4_meu76"), ExtResource("5_8y7lb")])
+
+[node name="SquareBody" type="Sprite2D" parent="."]
+texture = ExtResource("2_5433u")
+
+[node name="SquareFaceIdle" type="Sprite2D" parent="SquareBody"]
+unique_name_in_owner = true
+texture = ExtResource("3_nesan")
+
+[node name="SquareFaceFlee" type="Sprite2D" parent="SquareBody"]
+unique_name_in_owner = true
+visible = false
+texture = ExtResource("3_ssebj")
+
+[node name="SquareFaceDie" type="Sprite2D" parent="SquareBody"]
+unique_name_in_owner = true
+visible = false
+texture = ExtResource("5_x6rmw")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+unique_name_in_owner = true
+shape = SubResource("RectangleShape2D_erhfk")
+
+[node name="DieSFX" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_0tayh")
+bus = &"SFX"
+
+[node name="RayCastFront" type="RayCast2D" parent="."]
+target_position = Vector2(75, 0)
+collision_mask = 2
+collide_with_areas = true
+
+[node name="RayCastBack" type="RayCast2D" parent="."]
+target_position = Vector2(-75, 0)
+collision_mask = 2
+
+[node name="RayCastUp" type="RayCast2D" parent="."]
+target_position = Vector2(0, -75)
+collision_mask = 2
+
+[node name="RayCastDown" type="RayCast2D" parent="."]
+target_position = Vector2(0, 75)
+collision_mask = 2
+
+[node name="RayCastBottomLeft" type="RayCast2D" parent="."]
+target_position = Vector2(-75, 75)
+collision_mask = 2
+
+[node name="RayCastBottomRight" type="RayCast2D" parent="."]
+target_position = Vector2(75, 75)
+collision_mask = 2
+
+[node name="RayCastTopLeft" type="RayCast2D" parent="."]
+target_position = Vector2(-75, -75)
+collision_mask = 2
+
+[node name="RayCastTopRight" type="RayCast2D" parent="."]
+target_position = Vector2(75, -75)
+collision_mask = 2
+
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
+script = ExtResource("4_bsvne")
+initial_state = NodePath("Idle")
+
+[node name="Idle" type="Node" parent="StateMachine" node_paths=PackedStringArray("npc")]
+script = ExtResource("5_2qa1r")
+npc = NodePath("../..")
+
+[node name="Flee" type="Node" parent="StateMachine" node_paths=PackedStringArray("npc")]
+script = ExtResource("6_ixwkb")
+npc = NodePath("../..")
+
+[node name="DashTimer" type="Timer" parent="."]
+unique_name_in_owner = true
+one_shot = true
+
+[node name="DashCooldownTimer" type="Timer" parent="."]
+unique_name_in_owner = true
+one_shot = true
+
+[connection signal="finished" from="DieSFX" to="." method="_on_die_sfx_finished"]
+[connection signal="timeout" from="DashTimer" to="StateMachine/Flee" method="_on_dash_timer_timeout"]

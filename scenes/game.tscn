@@ -1,0 +1,223 @@
+[gd_scene load_steps=9 format=3 uid="uid://lxbs72p1euq"]
+
+[ext_resource type="PackedScene" uid="uid://fe8evg7ww265" path="res://scenes/player.tscn" id="1_6ywwl"]
+[ext_resource type="Script" path="res://scripts/game.gd" id="1_pv1k2"]
+[ext_resource type="PackedScene" uid="uid://q3xr5qm3fabj" path="res://scenes/creature.tscn" id="2_6x1jh"]
+[ext_resource type="FontFile" uid="uid://c4tluuph1sd76" path="res://assets/fonts/WendyOne-Regular.ttf" id="2_08eq6"]
+[ext_resource type="AudioStream" uid="uid://p5f0xn8umsyt" path="res://assets/sfx/fanfare-2-rpg.wav" id="5_8bv7g"]
+[ext_resource type="AudioStream" uid="uid://cort08156apjk" path="res://assets/music/actiontheme-v3.wav" id="5_irtdp"]
+[ext_resource type="PackedScene" uid="uid://ctl6l28st1pq7" path="res://scenes/npc.tscn" id="6_uhmvc"]
+[ext_resource type="PackedScene" uid="uid://cngrijs2n38p1" path="res://scenes/wall.tscn" id="7_qd7nd"]
+
+[node name="Game" type="Node2D"]
+script = ExtResource("1_pv1k2")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = -1
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.184314, 0.211765, 0.25098, 1)
+
+[node name="GameOverCanvas" type="CanvasLayer" parent="."]
+process_mode = 2
+visible = false
+
+[node name="GameOverLabel" type="Label" parent="GameOverCanvas"]
+unique_name_in_owner = true
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -219.0
+offset_bottom = -109.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.803922, 0.356863, 0.356863, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 4
+theme_override_constants/shadow_outline_size = 16
+theme_override_fonts/font = ExtResource("2_08eq6")
+theme_override_font_sizes/font_size = 80
+text = "Game Over"
+horizontal_alignment = 1
+vertical_alignment = 1
+uppercase = true
+
+[node name="Options" type="VFlowContainer" parent="GameOverCanvas"]
+unique_name_in_owner = true
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -54.0
+offset_top = 326.0
+offset_right = 54.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PlayButton" type="Button" parent="GameOverCanvas/Options"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_08eq6")
+theme_override_font_sizes/font_size = 48
+text = "Play"
+
+[node name="MenuButton" type="Button" parent="GameOverCanvas/Options"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_08eq6")
+theme_override_font_sizes/font_size = 48
+text = "Menu"
+
+[node name="QuitButton" type="Button" parent="GameOverCanvas/Options"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_08eq6")
+theme_override_font_sizes/font_size = 48
+text = "Quit"
+
+[node name="VictoryCanvas" type="CanvasLayer" parent="."]
+process_mode = 2
+visible = false
+
+[node name="VictoryLabel" type="Label" parent="VictoryCanvas"]
+unique_name_in_owner = true
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -219.0
+offset_bottom = -109.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.113725, 0.309804, 0.321569, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 4
+theme_override_constants/shadow_outline_size = 16
+theme_override_fonts/font = ExtResource("2_08eq6")
+theme_override_font_sizes/font_size = 80
+text = "You win"
+horizontal_alignment = 1
+vertical_alignment = 1
+uppercase = true
+
+[node name="Options" type="VFlowContainer" parent="VictoryCanvas"]
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -53.0
+offset_top = 325.0
+offset_right = 55.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VictoryPlayButton" type="Button" parent="VictoryCanvas/Options"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_08eq6")
+theme_override_font_sizes/font_size = 48
+text = "Play"
+
+[node name="VictoryMenuButton" type="Button" parent="VictoryCanvas/Options"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_08eq6")
+theme_override_font_sizes/font_size = 48
+text = "Menu"
+
+[node name="VictoryQuitButton" type="Button" parent="VictoryCanvas/Options"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_08eq6")
+theme_override_font_sizes/font_size = 48
+text = "Quit"
+
+[node name="Targets" type="Node" parent="." groups=["Targets"]]
+
+[node name="Player" parent="Targets" instance=ExtResource("1_6ywwl")]
+position = Vector2(68, 660)
+
+[node name="NPC6" parent="Targets" instance=ExtResource("6_uhmvc")]
+position = Vector2(1184, 66)
+
+[node name="NPC8" parent="Targets" instance=ExtResource("6_uhmvc")]
+position = Vector2(1193, 461)
+
+[node name="NPC15" parent="Targets" instance=ExtResource("6_uhmvc")]
+position = Vector2(76, 342)
+
+[node name="NPC17" parent="Targets" instance=ExtResource("6_uhmvc")]
+position = Vector2(942, 662)
+
+[node name="NPC19" parent="Targets" instance=ExtResource("6_uhmvc")]
+position = Vector2(638, 651)
+
+[node name="NPC20" parent="Targets" instance=ExtResource("6_uhmvc")]
+position = Vector2(359, 664)
+
+[node name="NPC18" parent="Targets" instance=ExtResource("6_uhmvc")]
+position = Vector2(95, 77)
+
+[node name="NPC10" parent="Targets" instance=ExtResource("6_uhmvc")]
+position = Vector2(1197, 666)
+
+[node name="NPC12" parent="Targets" instance=ExtResource("6_uhmvc")]
+position = Vector2(360, 86)
+
+[node name="NPC13" parent="Targets" instance=ExtResource("6_uhmvc")]
+position = Vector2(659, 59)
+
+[node name="NPC14" parent="Targets" instance=ExtResource("6_uhmvc")]
+position = Vector2(1198, 257)
+
+[node name="NPC7" parent="Targets" instance=ExtResource("6_uhmvc")]
+position = Vector2(933, 74)
+
+[node name="Walls" type="Node" parent="."]
+
+[node name="Wall" parent="Walls" instance=ExtResource("7_qd7nd")]
+position = Vector2(-8, 0)
+scale = Vector2(1, 4.04)
+
+[node name="Wall2" parent="Walls" instance=ExtResource("7_qd7nd")]
+position = Vector2(1288, 0)
+scale = Vector2(1, 4.04)
+
+[node name="Wall6" parent="Walls" instance=ExtResource("7_qd7nd")]
+position = Vector2(3.05176e-05, -8)
+rotation = 1.5708
+scale = Vector2(0.999991, -7.10991)
+
+[node name="Wall7" parent="Walls" instance=ExtResource("7_qd7nd")]
+position = Vector2(3.05174e-05, 728)
+rotation = 1.5708
+scale = Vector2(0.999991, -7.10991)
+
+[node name="Creature" parent="." instance=ExtResource("2_6x1jh")]
+position = Vector2(635, 346)
+
+[node name="Music" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_irtdp")
+autoplay = true
+bus = &"Music"
+
+[node name="VictorySFX" type="AudioStreamPlayer" parent="."]
+process_mode = 3
+stream = ExtResource("5_8bv7g")
+bus = &"SFX"
+
+[connection signal="pressed" from="GameOverCanvas/Options/PlayButton" to="." method="_on_play_button_pressed"]
+[connection signal="pressed" from="GameOverCanvas/Options/MenuButton" to="." method="_on_menu_button_pressed"]
+[connection signal="pressed" from="GameOverCanvas/Options/QuitButton" to="." method="_on_quit_button_pressed"]
+[connection signal="pressed" from="VictoryCanvas/Options/VictoryPlayButton" to="." method="_on_play_button_pressed"]
+[connection signal="pressed" from="VictoryCanvas/Options/VictoryMenuButton" to="." method="_on_menu_button_pressed"]
+[connection signal="pressed" from="VictoryCanvas/Options/VictoryQuitButton" to="." method="_on_quit_button_pressed"]
+[connection signal="player_died" from="Targets/Player" to="." method="_on_player_player_died"]

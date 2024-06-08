@@ -1,0 +1,231 @@
+[gd_scene load_steps=4 format=3 uid="uid://qe2t56qsw8qi"]
+
+[ext_resource type="Script" path="res://scripts/main_menu.gd" id="1_dpyyt"]
+[ext_resource type="FontFile" uid="uid://c4tluuph1sd76" path="res://assets/fonts/WendyOne-Regular.ttf" id="3_ekjte"]
+[ext_resource type="AudioStream" uid="uid://d0ocincburidl" path="res://assets/music/title.ogg" id="3_p552u"]
+
+[node name="MainMenu" type="Node2D"]
+script = ExtResource("1_dpyyt")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Background" type="ColorRect" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.113725, 0.309804, 0.321569, 1)
+
+[node name="Title" type="Label" parent="CanvasLayer"]
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -201.0
+offset_bottom = -116.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.803922, 0.356863, 0.356863, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 4
+theme_override_constants/shadow_outline_size = 16
+theme_override_fonts/font = ExtResource("3_ekjte")
+theme_override_font_sizes/font_size = 80
+text = "The Last Shape"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Options" type="VFlowContainer" parent="CanvasLayer"]
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -61.0
+offset_top = 326.0
+offset_right = 61.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PlayButton" type="Button" parent="CanvasLayer/Options"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_ekjte")
+theme_override_font_sizes/font_size = 48
+text = "Play"
+
+[node name="CreditsButton" type="Button" parent="CanvasLayer/Options"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_ekjte")
+theme_override_font_sizes/font_size = 48
+text = "Credits"
+
+[node name="QuitButton" type="Button" parent="CanvasLayer/Options"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_ekjte")
+theme_override_font_sizes/font_size = 48
+text = "Quit"
+
+[node name="CreditsPanel" type="Panel" parent="CanvasLayer"]
+unique_name_in_owner = true
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -400.0
+offset_top = -300.0
+offset_right = 400.0
+offset_bottom = 300.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer/CreditsPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.113725, 0.309804, 0.321569, 0.823529)
+
+[node name="CreditsLabel" type="Label" parent="CanvasLayer/CreditsPanel"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 32.0
+offset_bottom = 67.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("3_ekjte")
+theme_override_font_sizes/font_size = 32
+text = "Credits"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AuthorTitle" type="Label" parent="CanvasLayer/CreditsPanel"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 119.0
+offset_bottom = 142.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("3_ekjte")
+theme_override_font_sizes/font_size = 18
+text = "A game by"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AuthorLabel" type="Label" parent="CanvasLayer/CreditsPanel"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 144.0
+offset_bottom = 170.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0.803922, 0.356863, 0.356863, 1)
+theme_override_fonts/font = ExtResource("3_ekjte")
+theme_override_font_sizes/font_size = 18
+text = "Newton Duarte Cavalcanti
+(https://newton-duarte.itch.io)"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AssetsTitle" type="Label" parent="CanvasLayer/CreditsPanel"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 224.0
+offset_bottom = 247.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("3_ekjte")
+theme_override_font_sizes/font_size = 18
+text = "Assets"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AssetsLabel" type="Label" parent="CanvasLayer/CreditsPanel"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 246.0
+offset_bottom = 272.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0.803922, 0.356863, 0.356863, 1)
+theme_override_fonts/font = ExtResource("3_ekjte")
+theme_override_font_sizes/font_size = 18
+text = "Kenney (https://kenney.nl)"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AudioTitle" type="Label" parent="CanvasLayer/CreditsPanel"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 304.0
+offset_bottom = 327.0
+grow_horizontal = 2
+theme_override_fonts/font = ExtResource("3_ekjte")
+theme_override_font_sizes/font_size = 18
+text = "Audio"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AudioLabel" type="Label" parent="CanvasLayer/CreditsPanel"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 336.0
+offset_bottom = 362.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0.803922, 0.356863, 0.356863, 1)
+theme_override_fonts/font = ExtResource("3_ekjte")
+theme_override_font_sizes/font_size = 18
+text = "jacobalcook (https://freesound.org/people/jacobalcook)
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AudioLabel2" type="Label" parent="CanvasLayer/CreditsPanel"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 368.0
+offset_bottom = 394.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0.803922, 0.356863, 0.356863, 1)
+theme_override_fonts/font = ExtResource("3_ekjte")
+theme_override_font_sizes/font_size = 18
+text = "Kastenfrosch (https://freesound.org/people/Kastenfrosch)
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/CreditsPanel"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="CloseCreditsButton" type="Button" parent="CanvasLayer/CreditsPanel/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_ekjte")
+theme_override_font_sizes/font_size = 24
+text = "Close"
+
+[node name="Music" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_p552u")
+autoplay = true
+bus = &"Music"
+
+[connection signal="pressed" from="CanvasLayer/Options/PlayButton" to="." method="_on_play_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/Options/CreditsButton" to="." method="_on_credits_panel_toggle"]
+[connection signal="pressed" from="CanvasLayer/Options/QuitButton" to="." method="_on_quit_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/CreditsPanel/VBoxContainer/CloseCreditsButton" to="." method="_on_credits_panel_toggle"]

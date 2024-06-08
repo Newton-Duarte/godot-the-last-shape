@@ -1,0 +1,54 @@
+[gd_scene load_steps=9 format=3 uid="uid://fe8evg7ww265"]
+
+[ext_resource type="Script" path="res://scripts/player.gd" id="1_vd3e6"]
+[ext_resource type="Texture2D" uid="uid://bxne2dcgwklc5" path="res://assets/shapes_characters/blue_body_square.png" id="2_oyl7r"]
+[ext_resource type="AudioStream" uid="uid://cj253p40vwnyn" path="res://assets/sfx/kastenfrosch__whoosh-dash-2.ogg" id="3_8osmt"]
+[ext_resource type="AudioStream" uid="uid://cyhtxfdodrkbx" path="res://assets/sfx/game-over-arcade.ogg" id="3_d74fc"]
+[ext_resource type="Texture2D" uid="uid://bu2f1uawr1uo8" path="res://assets/shapes_characters/face_a.png" id="3_ghxe2"]
+[ext_resource type="Texture2D" uid="uid://6s3k8lp2grd5" path="res://assets/shapes_characters/face_f.png" id="4_ehtrx"]
+[ext_resource type="Texture2D" uid="uid://bxwwl80fip34l" path="res://assets/shapes_characters/face_j.png" id="4_o1d0w"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1hjec"]
+size = Vector2(72, 72)
+
+[node name="Player" type="CharacterBody2D"]
+collision_layer = 2
+script = ExtResource("1_vd3e6")
+
+[node name="SquareBody" type="Sprite2D" parent="."]
+texture = ExtResource("2_oyl7r")
+
+[node name="SquareFaceIdle" type="Sprite2D" parent="SquareBody"]
+unique_name_in_owner = true
+texture = ExtResource("3_ghxe2")
+
+[node name="SquareFaceFlee" type="Sprite2D" parent="SquareBody"]
+unique_name_in_owner = true
+visible = false
+texture = ExtResource("4_ehtrx")
+
+[node name="SquareFaceDie" type="Sprite2D" parent="SquareBody"]
+unique_name_in_owner = true
+visible = false
+texture = ExtResource("4_o1d0w")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_1hjec")
+
+[node name="DashSFX" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_8osmt")
+bus = &"SFX"
+
+[node name="DieSFX" type="AudioStreamPlayer" parent="."]
+process_mode = 3
+stream = ExtResource("3_d74fc")
+bus = &"SFX"
+
+[node name="DashTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="DashCooldownTimer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="timeout" from="DashTimer" to="." method="_on_dash_timer_timeout"]
+[connection signal="timeout" from="DashCooldownTimer" to="." method="_on_dash_cooldown_timer_timeout"]
